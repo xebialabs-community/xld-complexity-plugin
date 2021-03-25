@@ -1,0 +1,93 @@
+<!--
+    Copyright 2020 XEBIALABS
+    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+<!DOCTYPE html>
+<html>
+<style>
+table, th , td  {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  padding: 5px;
+  max-width: 45%;
+}
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+</style>
+<head>
+
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="complexity.js"></script>
+    <script src="vendor/echarts.min.js"></script>
+    <script src="complexity-graph.js"></script>
+    <link rel="stylesheet" href="complexity-graph.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+  </head>
+
+  <body ng-app="tutor" ng-controller="TutorController" class="ng-cloak">
+  <div id="chart"></div>
+  <div class="container">
+        <!-- <div ng-include="partialViewUrl" ng-init="myFunction()"></div> -->
+        <form id="myForm" role="form" ng-init="myFunction()" ng-submit="myFunction()">
+          <button type="submit" class="btn btn-default">Refresh</button>
+        </form>
+        <br>
+        <p>The total Complexity score of your XL Deploy instance is: <span id="TotalScore">{{TotalScore}}</span></p>
+        <p>The Infrastructure Complexity score of your XL Deploy instance is: <span id="Infrastructure">{{Infrastructure}}</span><button onclick="infraHide()">+</button></p>
+        <table id="infraTable">
+          <tr ng-repeat="x in names">
+            <td>{{ x.name }}</td>
+            <td>{{ x.count }}</td>
+          </tr>
+        </table>
+        <p>The Applications score of your XL Deploy instance is: <span id="Applications">{{Applications}}</span><button onclick="appHide()">+</button></p>
+        <table id="appTable">
+          <tr ng-repeat="x in apps">
+            <td>{{ x.name }}</td>
+            <td>{{ x.count }}</td>
+          </tr>
+        </table>
+        <!-- <div id="myDIV">
+          <div ng-repeat="name in names"> -->
+            <!-- <ul><li>{{name}}</li></ul> -->
+            <!-- <p>{{name.name}} | {{name.count}}</p>
+          </div>
+        </div>
+-->
+  </div>
+
+</body>
+<script type="text/javascript">
+  window.parent.document.getElementById("tab-xldeploy.menu.Complexity").addEventListener("click", event => {
+    setTimeout(() => {
+document.getElementById("myForm").querySelector('button[type="submit"]').click()
+},500);
+})
+</script>
+<script type="text/javascript">
+function infraHide() {
+  var x = document.getElementById("infraTable");
+  if (x.style.display === "none") {
+    x.style.display = "table";
+  } else {
+    x.style.display = "none";
+  }
+}
+function appHide() {
+  var x = document.getElementById("appTable");
+  if (x.style.display === "none") {
+    x.style.display = "table";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
+</html>
